@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: '18'  
 
-   #   - name: Authenticate npm with GitHub Token
-   #     run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GPK_TOKEN }}" > ~/.npmrc
+      - name: Authenticate npm with GitHub Token
+        run: echo "//npm.pkg.github.com/:_authToken=r0wY0HueNYi0-evJA1ARFAJrTtChp6sBbcy_U6RRs5H3ykrDqRjjPPGhQraSrmwC > ~/.npmrc
 
       # Step to install dependencies
     #  - name: Install dependencies
