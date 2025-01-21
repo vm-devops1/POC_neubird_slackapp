@@ -15,6 +15,23 @@ jobs:
           submodules: true
           token: ${{ secrets.NEUBIRD_SLACK }}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  
+
+      # Step to install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+
+
+      # Step to build the source code
+      - name: Build the app
+        run: |
+          npm run build  
+
+          
       - name: Build docker image
         run: |
           docker build . -t neubirdai/hawkeye-slack:build
