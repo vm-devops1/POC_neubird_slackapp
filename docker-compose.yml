@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  neubird-slack-custom:
+    container_name: neubird-slack-custom
+    image: neubird-slack-custom:latest
+    build:
+      context: .
+    hostname: neubird-slack-custom
+    tty: true
+    restart: on-failure
+    network_mode: host
+    environment:
+      - NODE_ENV=production
+      - PM2_HOME=/home/ubuntu/.pm2
+

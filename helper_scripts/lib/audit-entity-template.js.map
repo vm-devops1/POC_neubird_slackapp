@@ -1,0 +1,1 @@
+{"version":3,"file":"audit-entity-template.js","sourceRoot":"","sources":["../src/audit-entity-template.ts"],"names":[],"mappings":";;;AAAA,SAAgB,MAAM,CAAC,SAAiB,EAAE,cAAsB,EAAE,UAAkB;IAChF,OAAO,YAAY,SAAS,YAAY,UAAU;;;kBAGpC,SAAS,cAAc,SAAS,aAAT,SAAS,uBAAT,SAAS,CAAE,WAAW,EAAE;eAClD,cAAc,YAAY,SAAS;;;;GAI/C,CAAA;AACH,CAAC;AAVD,wBAUC"}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hawkeye Setup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Lato', serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container-parent {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        text-align: center;
+        border-radius: 8px;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        max-width: 1024px;
+      }
+
+      .container .first {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .child {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .container h1 {
+        font-size: 2.5em;
+        margin: 0;
+        color: #1d1c1d;
+        font-weight: 700;
+      }
+
+      .container p {
+        font-family: 'Lato', serif;
+        font-size: 20px;
+        color: #1d1c1d;
+        margin: 0;
+        font-weight: 400;
+        line-height: 24px;
+      }
+
+      .container .second {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+      }
+      .container .get-started {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .icon {
+        /* margin: 20px 0; */
+      }
+      .container h2 {
+        font-size: 2rem;
+        color: #1d1c1d;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .icon img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .button {
+        background-color: #4a154b;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1em;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #4a224a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-parent">
+      <div class="container">
+        <div class="first">
+          <div class="child">
+            <h1>🎉 Hawkeye is ready to go!</h1>
+            <p>You have successfully installed Hawkeye in Slack.</p>
+          </div>
+          <div class="child">
+            <h2>What’s next?</h2>
+            <p>
+              Configure your Hawkeye integration to start managing incidents and collaborating seamlessly—all within
+              Slack.
+            </p>
+          </div>
+        </div>
+        <div class="second">
+          <div class="icon">
+            <img src="./logo.svg" alt="Hawkeye Logo" />
+          </div>
+          <div class="get-started">
+            <a id="configure-link" rel="noopener noreferrer" href="#" target="_blank" class="button"
+              >Configure Hawkeye</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Function to extract query parameters
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Get the app_id from the URL
+      const appId = getQueryParam('app_id');
+
+      // Update the href of the link dynamically
+      const configureLink = document.getElementById('configure-link');
+      if (appId) {
+        configureLink.href = `https://slack.com/app_redirect?app=${appId}&tab=home`;
+      } else {
+        configureLink.textContent = 'App ID not found';
+        configureLink.style.pointerEvents = 'none'; // Disable the link if app_id is missing
+      }
+    </script>
+  </body>
+</html>

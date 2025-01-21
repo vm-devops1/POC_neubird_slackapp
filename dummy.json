@@ -1,0 +1,6 @@
+{
+  "and": [
+    {"or": [{"category[eq]": "uid"}, {"category[eq]": "uid"}]},
+    {"or": [{"name[lk]": "name1"}, {"name[eq]": "Denzel"}]}
+  ]
+}
