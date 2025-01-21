@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: '18'  
 
+      - name: Authenticate npm with GitHub Token
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NEUBIRD_SLACK }}" > ~/.npmrc
+
       # Step to install dependencies
       - name: Install dependencies
         run: |
