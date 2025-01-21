@@ -26,7 +26,7 @@ jobs:
       # Step to install dependencies
       - name: Install dependencies
         run: |
-          npm run init
+          npm cache clean --force && npm run init
 
 
       # Step to build the source code
