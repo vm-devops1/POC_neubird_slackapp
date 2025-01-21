@@ -1,0 +1,23 @@
+name: Build & Deploy image
+
+on:
+  push:
+    branches: [ "main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.RAVEN_API_CLONE_PAT }}
+
+      - name: Build docker image
+        run: |
+          docker build . -t neubirdai/hawkeye-slack:build
+
+      - name: Set Build Timestamp
+        id: set_timestamp
+        run: echo "::set-output name=timestamp::$(date +'%Y%m%d-%s')"
