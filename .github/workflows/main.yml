@@ -24,9 +24,9 @@ jobs:
    #     run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GPK_TOKEN }}" > ~/.npmrc
 
       # Step to install dependencies
-      - name: Install dependencies
-        run: |
-          npm cache clean --force && npm run init
+    #  - name: Install dependencies
+    #    run: |
+    #      npm cache clean --force && npm run init
 
 
       # Step to build the source code
