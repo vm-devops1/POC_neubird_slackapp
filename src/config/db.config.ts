@@ -12,7 +12,7 @@ export function getDbConfig(env) {
       }
       // CONFIGS FOR MYSQL
       return {
-        type: env.DB_TYPE,
+        type: 'postgres',
         host: env.DB_HOST,
         port: +env.DB_PORT,
         username: env.DB_USERNAME,
