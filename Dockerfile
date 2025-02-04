@@ -35,7 +35,7 @@ COPY --chown=ubuntu:ubuntu node_modules/ ./node_modules
 COPY --chown=ubuntu:ubuntu .npmrc .npmrc
 COPY --chown=ubuntu:ubuntu public/ /home/ubuntu/neubird-slack-custom/public/
 
-RUN chmod 644 .env
+RUN chmod -R 777 /home/ubuntu/neubird-slack-custom/.env
 
 # Expose the application port
 EXPOSE 7112
