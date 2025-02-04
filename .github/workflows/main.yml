@@ -32,8 +32,8 @@ jobs:
         run: |
           npm run build  
 
-      - name: Create .env file
-        run: echo "${{ secrets.DOTENV }}" > .env
+   #   - name: Create .env file
+   #     run: echo "${{ secrets.DOTENV }}" > .env
 
       - name: Build docker image
         run: |
