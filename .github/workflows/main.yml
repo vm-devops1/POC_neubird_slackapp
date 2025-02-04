@@ -63,4 +63,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ecr.aws.ap-south-1.amazonaws.com/neubird/slack-app:latest
+          tags: 764890574198.ecr.aws.ap-south-1.amazonaws.com/neubird/slack-app:latest
