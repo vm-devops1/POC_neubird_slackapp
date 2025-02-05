@@ -16,6 +16,8 @@ RUN mkdir -p /home/ubuntu/.pm2/logs \
 # Create necessary directories for PM2 logs and set correct ownership/permissions
 RUN mkdir -p /home/ubuntu/neubird-slack-custom/logs && \
     chown -R ubuntu:ubuntu /home/ubuntu/neubird-slack-custom/logs
+
+RUN apt-get update && apt-get install -y telnet
 	
 # Install PM2 globally as root to ensure it's available system-wide for managing Node.js processes
 # PM2 is a process manager for Node.js applications. It ensures that the application keeps running, even after crashes, and makes it easy to manage and monitor Node.js apps.
