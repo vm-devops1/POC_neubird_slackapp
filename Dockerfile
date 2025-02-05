@@ -4,6 +4,10 @@ FROM node:18.13.0
 # Switch to root user
 USER root
 
+# Create a non-root user 'ubuntu' before using it
+RUN adduser --disabled-password --gecos '' ubuntu \
+    && usermod -aG sudo ubuntu
+
 # Install PostgreSQL and dependencies
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib telnet
 
@@ -15,7 +19,7 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres123
 ENV POSTGRES_DB=neubird_custom
 
-# Setup PM2 directory structure and set permissions
+# Setup PM2 directory structure and set permissions (user ubuntu exists now)
 RUN mkdir -p /home/ubuntu/.pm2/logs \
     && chown -R ubuntu:ubuntu /home/ubuntu \
     && chmod -R 700 /home/ubuntu/.pm2
