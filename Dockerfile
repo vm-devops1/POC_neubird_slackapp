@@ -15,17 +15,21 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres123
 ENV POSTGRES_DB=neubird_custom
 
+# Create the 'ubuntu' user if it doesn't exist
+RUN adduser --disabled-password --gecos '' ubuntu && \
+    usermod -aG sudo ubuntu
+
 # Fix permissions of /var/run/postgresql (ensure PostgreSQL directory is accessible)
 RUN mkdir -p /var/run/postgresql && \
     chown -R postgres:postgres /var/run/postgresql && \
     chmod 700 /var/run/postgresql
 
-# Setup PM2 directory structure and set permissions (run as root user)
+# Create the necessary directories for PM2 logs and set permissions
 RUN mkdir -p /home/ubuntu/.pm2/logs && \
     chown -R ubuntu:ubuntu /home/ubuntu && \
     chmod -R 700 /home/ubuntu/.pm2
 
-# Create necessary directories for PM2 logs and set correct ownership/permissions
+# Create necessary directories for logs in your app and set correct ownership/permissions
 RUN mkdir -p /home/ubuntu/neubird-slack-custom/logs && \
     chown -R ubuntu:ubuntu /home/ubuntu/neubird-slack-custom/logs
 
@@ -47,7 +51,7 @@ COPY --chown=ubuntu:ubuntu .npmrc .npmrc
 COPY --chown=ubuntu:ubuntu public/ /home/ubuntu/neubird-slack-custom/public/
 
 # Set permissions for .env file
-RUN chmod -R 666 /home/ubuntu/neubird-slack-custom/.env
+RUN chmod -R 777 /home/ubuntu/neubird-slack-custom/.env
 
 # Expose the application port (Node.js app port)
 EXPOSE 7112
