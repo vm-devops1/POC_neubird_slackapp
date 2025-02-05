@@ -10,6 +10,14 @@ RUN apt-get update && apt-get install -y \
     telnet \
     && apt-get clean
 
+# Set the password for the postgres user
+RUN echo "ALTER USER postgres PASSWORD 'postgres123';" > /tmp/init.sql
+ 
+# Start PostgreSQL, run the SQL script, then stop the service
+RUN service postgresql start && \
+    su - postgres -c "psql -f /tmp/init.sql" && \
+    service postgresql stop
+
 # Create a non-root user (ubuntu) to prevent security risks
 RUN adduser --disabled-password --gecos '' ubuntu \
     && usermod -aG sudo ubuntu
