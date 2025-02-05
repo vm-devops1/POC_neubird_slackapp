@@ -1,14 +1,10 @@
 # Use Node.js as the base image
 FROM node:18.13.0
 
-# Switch to root user
+# Switch to root user (default) to install packages and change permissions
 USER root
 
-# Create a non-root user 'ubuntu' before using it
-RUN adduser --disabled-password --gecos '' ubuntu \
-    && usermod -aG sudo ubuntu
-
-# Install PostgreSQL and dependencies
+# Install PostgreSQL and necessary utilities
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib telnet
 
 # Expose the PostgreSQL default port
@@ -19,10 +15,15 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres123
 ENV POSTGRES_DB=neubird_custom
 
-# Setup PM2 directory structure and set permissions (user ubuntu exists now)
-RUN mkdir -p /home/ubuntu/.pm2/logs \
-    && chown -R ubuntu:ubuntu /home/ubuntu \
-    && chmod -R 700 /home/ubuntu/.pm2
+# Fix permissions of /var/run/postgresql (ensure PostgreSQL directory is accessible)
+RUN mkdir -p /var/run/postgresql && \
+    chown -R postgres:postgres /var/run/postgresql && \
+    chmod 700 /var/run/postgresql
+
+# Setup PM2 directory structure and set permissions (run as root user)
+RUN mkdir -p /home/ubuntu/.pm2/logs && \
+    chown -R ubuntu:ubuntu /home/ubuntu && \
+    chmod -R 700 /home/ubuntu/.pm2
 
 # Create necessary directories for PM2 logs and set correct ownership/permissions
 RUN mkdir -p /home/ubuntu/neubird-slack-custom/logs && \
@@ -31,7 +32,7 @@ RUN mkdir -p /home/ubuntu/neubird-slack-custom/logs && \
 # Install PM2 globally
 RUN npm install -g pm2@5.2.2
 
-# Switch to non-root user (ubuntu)
+# Switch to non-root user (ubuntu) to run the app
 USER ubuntu
 
 # Set the working directory for the application
@@ -46,7 +47,7 @@ COPY --chown=ubuntu:ubuntu .npmrc .npmrc
 COPY --chown=ubuntu:ubuntu public/ /home/ubuntu/neubird-slack-custom/public/
 
 # Set permissions for .env file
-RUN chmod -R 777 /home/ubuntu/neubird-slack-custom/.env
+RUN chmod -R 666 /home/ubuntu/neubird-slack-custom/.env
 
 # Expose the application port (Node.js app port)
 EXPOSE 7112
