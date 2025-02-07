@@ -39,6 +39,7 @@ COPY --chown=ubuntu:ubuntu package.json package-lock.json ./
 COPY --chown=ubuntu:ubuntu node_modules/ ./node_modules
 COPY --chown=ubuntu:ubuntu .npmrc .npmrc
 COPY --chown=ubuntu:ubuntu public/ /home/ubuntu/neubird-slack-custom/public/
+COPY --chown=ubuntu:ubuntu rds-ca-2019-root.pem rds-ca-2019-root.pem
 
 RUN chmod -R 777 /home/ubuntu/neubird-slack-custom/.env
 
