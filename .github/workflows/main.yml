@@ -35,7 +35,7 @@ jobs:
       - name: Create .env file from secrets
         run: |
           echo "${{ secrets.DOTENV }}" > .env
-          echo "SSL_CA=$(pwd)/rds-ca-2019-root.pem" >> .env
+          echo "SSL_CA=/home/ubuntu/neubird-slack-custom/rds-ca-2019-root.pem" >> .env
         env:
           DOTENV: ${{ secrets.DOTENV }}
 
