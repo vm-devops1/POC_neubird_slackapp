@@ -32,8 +32,17 @@ jobs:
         run: |
           npm run build  
 
-      - name: Create .env file
-        run: echo "${{ secrets.DOTENV }}" > .env
+      - name: Create .env file from secrets
+        run: |
+          echo "${{ secrets.DOTENV }}" > .env
+          echo "SSL_CA=$(pwd)/rds-ca-2019-root.pem" >> .env
+        env:
+          DOTENV: ${{ secrets.DOTENV }}
+
+      - name: Create SSL cert file
+        run: echo "${{ secrets.RDS_CA_CERT }}" > rds-ca-2019-root.pem
+        env:
+          RDS_CA_CERT: ${{ secrets.RDS_CA_CERT }}
 
       - name: Build docker image
         run: |
