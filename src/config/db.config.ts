@@ -1,6 +1,6 @@
 import {AppLogger, DB_TYPE} from '@kaiju-lib/node-common';
 import * as fs from 'fs';
- 
+
 export function getDbConfig(env) {
   if (env.DB_TYPE) {
     if (env.DB_TYPE === DB_TYPE.MY_SQL || env.DB_TYPE === 'postgres') {
@@ -12,7 +12,13 @@ export function getDbConfig(env) {
         queryLogging.logging = false;
       }
       // CONFIGS FOR MYSQL
-      const sslConfig = {ssl: false}; // Disable SSL when DB_SSL is not 'true'
+      let sslConfig = {ssl: false}; // Disable SSL when DB_SSL is not 'true'
+      if (env.DB_SSL === 'true') {
+        sslConfig = {
+          //@ts-ignore
+          ssl: {ca: fs.readFileSync(env.SSL_CA).toString()},
+        };
+      }
       return {
         type: env.DB_TYPE,
         host: env.DB_HOST,
@@ -26,9 +32,12 @@ export function getDbConfig(env) {
         //migrations: ['src/migration/**/*.ts'],
         //subscribers: ['src/subscriber/**/*.ts'],
         //logging: true,
-        ssl: {
-          ca: fs.readFileSync(env.SSL_CA).toString(),
-        },
+        // ssl: false,
+        ...sslConfig,
+        // ssl: {
+        //   // ca: fs.readFileSync(env.SSL_CA).toString(),
+        //   rejectUnauthorized: false,
+        // },
         ...queryLogging,
         extra: {
           connectionLimit: 10, // pool size
