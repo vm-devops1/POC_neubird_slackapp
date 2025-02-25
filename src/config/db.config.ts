@@ -13,7 +13,7 @@ export function getDbConfig(env) {
       }
       // CONFIGS FOR MYSQL
       let sslConfig = {ssl: false}; // Disable SSL when DB_SSL is not 'true'
-      if (env.DB_SSL === 'true') {
+      if (env.SSL_ENABLED === 'true') {
         sslConfig = {
           //@ts-ignore
           ssl: {ca: fs.readFileSync(env.SSL_CA).toString()},
